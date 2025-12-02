@@ -27,3 +27,46 @@ class LRUCache:
         
         self.cache.move_to_end(key)
         return self.cache[key]
+    
+    def put(self, key, value):
+        """
+        Add or update key-value pair. Evict LRU item if at capacity.
+        
+        Args:
+            key: Key to store
+            value: Value to store
+            
+        Hint: 
+        - If key exists, update and mark as recently used
+        - If at capacity, remove least recently used item first
+        - Then add new item
+        """
+
+        #wrap this in try catch blocks
+        if self.cache[key]:
+            if len(self.cache) >= self.capacity:
+                print("================Capacity Full================\n")
+                print("1. Delete Least Used Item\n")
+                print("2. Continue With Keeping Old items\n")
+                userInput = input()
+                if (int(userInput) == 1):
+                    #logic to delete the least used item
+                    pass
+                elif (int(userInput) == 2):
+                    #logic to continue
+                    pass
+                else:
+                    #logic for edge cases
+                    pass
+                
+        
+        # TODO: Implement put logic
+        pass
+    
+    def __len__(self):
+        """Return current cache size."""
+        # TODO: Return number of items
+        return len(self.cache)
+    
+    def __repr__(self):
+        return ""

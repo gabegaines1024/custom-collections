@@ -1,0 +1,142 @@
+"""
+Priority Task Queue Implementation - Skeleton
+
+Your task: Implement a priority queue where lower priority numbers = higher priority
+- add_task() should be O(log n)
+- get_next_task() should be O(log n)
+- peek() should be O(1)
+
+Hint: Use Python's heapq module (min-heap)
+"""
+
+import heapq
+from dataclasses import dataclass, field
+from typing import Any
+from datetime import datetime
+
+
+@dataclass(order=True)
+class Task:
+    """Task with priority and metadata."""
+    priority: int = field(compare=True)
+    timestamp: datetime = field(compare=True, default_factory=datetime.now)
+    name: str = field(compare=False)
+    data: Any = field(compare=False, default=None)
+    
+    def __repr__(self):
+        return f"Task('{self.name}', priority={self.priority})"
+
+
+class PriorityTaskQueue:
+    """Priority queue for task scheduling."""
+    
+    def __init__(self):
+        """
+        Initialize the priority queue.
+        
+        Hint: You'll need a heap and a counter for tie-breaking
+        """
+        # TODO: Initialize heap
+        # TODO: Initialize counter for stable sorting
+        pass
+    
+    def add_task(self, name: str, priority: int = 5, data: Any = None):
+        """
+        Add a task to the queue.
+        
+        Args:
+            name: Task name/description
+            priority: Priority level (1=highest, 10=lowest)
+            data: Optional task data
+            
+        Hint: Create Task object and push to heap with (priority, counter, task)
+        """
+        # TODO: Create task
+        # TODO: Push to heap (use heapq.heappush)
+        # TODO: Increment counter
+        pass
+    
+    def get_next_task(self) -> Task:
+        """
+        Remove and return highest priority task.
+        
+        Returns:
+            Task object
+            
+        Raises:
+            IndexError: If queue is empty
+            
+        Hint: Use heapq.heappop, extract task from tuple
+        """
+        # TODO: Check if empty
+        # TODO: Pop from heap
+        # TODO: Return task
+        pass
+    
+    def peek(self) -> Task:
+        """
+        View highest priority task without removing it.
+        
+        Returns:
+            Task object
+            
+        Raises:
+            IndexError: If queue is empty
+            
+        Hint: Just look at heap[0], don't pop
+        """
+        # TODO: Check if empty
+        # TODO: Return task from heap[0]
+        pass
+    
+    def is_empty(self) -> bool:
+        """Check if queue is empty."""
+        # TODO: Return whether heap is empty
+        pass
+    
+    def __len__(self):
+        """Return number of tasks in queue."""
+        # TODO: Return heap length
+        pass
+    
+    def __repr__(self):
+        """String representation of queue."""
+        # TODO: Return formatted string of tasks
+        pass
+
+
+# Test your implementation
+"""if __name__ == "__main__":
+    print("=== Testing Priority Queue ===\n")
+    
+    queue = PriorityTaskQueue()
+    
+    # Test 1: Add tasks
+    queue.add_task("Low priority task", priority=5)
+    queue.add_task("High priority task", priority=1)
+    queue.add_task("Medium priority task", priority=3)
+    print(f"Added 3 tasks, queue size: {len(queue)}")
+    print(f"Expected: 3\n")
+    
+    # Test 2: Peek
+    next_task = queue.peek()
+    print(f"Next task (peek): {next_task}")
+    print(f"Queue size after peek: {len(queue)}")
+    print(f"Expected: High priority task (priority=1), size=3\n")
+    
+    # Test 3: Process tasks in priority order
+    print("Processing tasks:")
+    while not queue.is_empty():
+        task = queue.get_next_task()
+        print(f"  → {task}")
+    print(f"Expected: Tasks in order 1, 3, 5\n")
+    
+    # Test 4: Empty queue
+    print(f"Queue is empty: {queue.is_empty()}")
+    print(f"Expected: True")
+    
+    try:
+        queue.get_next_task()
+        print("ERROR: Should have raised IndexError!")
+    except IndexError:
+        print("✓ Correctly raised IndexError on empty queue")"""

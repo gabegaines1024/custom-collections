@@ -14,31 +14,30 @@ from dataclasses import dataclass, field
 from typing import Any
 from datetime import datetime
 
-
+"""When order=True, dataclasses automatically generates the rich comparison methods (__lt__, __le__, __gt__, __ge__)."""
+"""Automatically creates __init__(), __repr__(), and __eq__()"""
 @dataclass(order=True)
 class Task:
     """Task with priority and metadata."""
+    name: str = field(compare=False) 
     priority: int = field(compare=True)
     timestamp: datetime = field(compare=True, default_factory=datetime.now)
-    name: str = field(compare=False)
     data: Any = field(compare=False, default=None)
-    
+
     def __repr__(self):
         return f"Task('{self.name}', priority={self.priority})"
 
 
 class PriorityTaskQueue:
     """Priority queue for task scheduling."""
+    """Tasks are compared by priority first, then timestamp if priorities are equal"""
     
     def __init__(self):
         """
         Initialize the priority queue.
-        
-        Hint: You'll need a heap and a counter for tie-breaking
         """
-        # TODO: Initialize heap
-        # TODO: Initialize counter for stable sorting
-        pass
+        self.heap = []
+        self.counter = 0
     
     def add_task(self, name: str, priority: int = 5, data: Any = None):
         """
@@ -54,7 +53,9 @@ class PriorityTaskQueue:
         # TODO: Create task
         # TODO: Push to heap (use heapq.heappush)
         # TODO: Increment counter
-        pass
+        task = Task(name=name, priority=priority, data=data)
+        heapq.heappush(self.heap, (priority, self.counter, task))
+        self.counter += 1
     
     def get_next_task(self) -> Task:
         """

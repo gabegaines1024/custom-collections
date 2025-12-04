@@ -39,7 +39,7 @@ class PriorityTaskQueue:
         self.heap = []
         self.counter = 0
     
-    def add_task(self, name: str, priority: int = 5, data: Any = None):
+    def add_task(self, name: str, priority: int, data: Any = None):
         """
         Add a task to the queue.
         
@@ -47,15 +47,17 @@ class PriorityTaskQueue:
             name: Task name/description
             priority: Priority level (1=highest, 10=lowest)
             data: Optional task data
-            
-        Hint: Create Task object and push to heap with (priority, counter, task)
         """
         # TODO: Create task
         # TODO: Push to heap (use heapq.heappush)
         # TODO: Increment counter
-        task = Task(name=name, priority=priority, data=data)
-        heapq.heappush(self.heap, (priority, self.counter, task))
-        self.counter += 1
+        if (priority < 1 and priority > 10):
+            return "Value has to be in between 1 and 10"
+        else:
+            task = Task(name=name, priority=priority, data=data)
+            heapq.heappush(self.heap, (-priority, self.counter, task))
+            self.counter += 1
+        
     
     def get_next_task(self) -> Task:
         """
@@ -66,14 +68,13 @@ class PriorityTaskQueue:
             
         Raises:
             IndexError: If queue is empty
-            
-        Hint: Use heapq.heappop, extract task from tuple
         """
-        # TODO: Check if empty
-        # TODO: Pop from heap
-        # TODO: Return task
-        pass
-    
+
+        if (self.heap):
+            return heapq.heappop(self.heap)[-1]
+        else:
+            raise IndexError 
+        
     def peek(self) -> Task:
         """
         View highest priority task without removing it.
@@ -83,12 +84,11 @@ class PriorityTaskQueue:
             
         Raises:
             IndexError: If queue is empty
-            
-        Hint: Just look at heap[0], don't pop
         """
-        # TODO: Check if empty
-        # TODO: Return task from heap[0]
-        pass
+        if (self.heap):
+            return self.heap[0]
+        else:
+            raise IndexError
     
     def is_empty(self) -> bool:
         """Check if queue is empty."""
